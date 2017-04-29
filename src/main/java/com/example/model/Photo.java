@@ -1,27 +1,27 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.sql.Blob;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 /**
  * Created by maja on 26.03.17.
  */
+
 @Entity
+@Table(name = "photo")
 public class Photo {
 
+    public Photo(){};
+
     @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private Integer seconds;
+    private Blob image;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "user_photo")
-    private List<User> users = new ArrayList<>();
-
-    public Long getId() {
+     public Long getId() {
         return id;
     }
 
@@ -29,19 +29,12 @@ public class Photo {
         this.id = id;
     }
 
-    public Integer getSeconds() {
-        return seconds;
+    public Blob getImage() {
+        return image;
     }
 
-    public void setSeconds(Integer seconds) {
-        this.seconds = seconds;
+    public void setImage(Blob image) {
+        this.image = image;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 }
