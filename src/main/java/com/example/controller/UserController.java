@@ -5,9 +5,9 @@ import com.example.model.dto.UserDto;
 import com.example.service.UserService;
 import com.example.transformer.service.UserTransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,13 +22,17 @@ public class UserController {
     @Autowired
     private UserTransformerService userTransformerService;
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public UserDto createUser(@RequestParam String name, @RequestParam String surname,@RequestParam String nick,@RequestParam String email,@RequestParam String password){
-        UserDto dto = new UserDto(name, surname, nick, email, password);
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public UserDto createUser(@RequestBody UserDto dto) {
+        System.out.println("Mamy sie");
         User user = userTransformerService.transformFromDto(dto);
         userService.create(user);
         dto.setId(user.getId());
         return dto;
+    }
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public String sayHello(@RequestBody UserDto dto) {
+        return "Hello from the server to " + dto.getName();
     }
 
 
