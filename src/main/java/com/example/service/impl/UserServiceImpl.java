@@ -5,6 +5,7 @@ import com.example.repository.UserRepository;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -37,17 +38,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(User user, Principal principal) {
         String email = principal.getName();
-        User updatedUser = userRepository.findUserByEmail(email);
+        User updatedUser = userRepository.findByEmail(email);
         List<User> friendsOf = new ArrayList<>();
         List<User> friends = new ArrayList<>();
-        for(User friend : user.getFriendsOf()){
+       /* for(User friend : user.getFriendsOf()){
             friendsOf.add(friend);
-        }
+        }*/
         for(User friend : user.getFriends()){
             friends.add(friend);
         }
         updatedUser.setFriends(friends);
-        updatedUser.setFriendsOf(friendsOf);
+        //updatedUser.setFriendsOf(friendsOf);
         updatedUser.setEmail(user.getEmail());
         updatedUser.setNick(user.getNick());
         updatedUser.setPassword(user.getPassword());
@@ -62,6 +63,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findUserByEmail(email);
+        return userRepository.findByEmail(email);
     }
+
+    @Override
+    @Transactional
+    public User addFriend(String userEmail, String friendEmail) {
+        User user = userRepository.findByEmail(userEmail);
+        User friend = userRepository.findByEmail(friendEmail);
+
+        if(friend != null && !user.getFriends().contains(friend)){
+            user.getFriends().add(friend);
+            friend.getFriends().add(user);
+        } else {
+            System.out.println("There's no such user!");
+        }
+
+        userRepository.save(user);
+        userRepository.save(friend);
+        return user;
+    }
+
+
 }

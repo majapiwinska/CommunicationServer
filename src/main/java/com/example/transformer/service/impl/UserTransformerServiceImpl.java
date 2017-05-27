@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by maja on 29.04.17.
@@ -27,7 +28,7 @@ public class UserTransformerServiceImpl implements UserTransformerService {
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         user.setFriends(new ArrayList<>());
-        user.setFriendsOf(new ArrayList<>());
+       // user.setFriendsOf(new ArrayList<>());
         user.setPhotos(new ArrayList<>());
         return user;
     }
@@ -43,4 +44,14 @@ public class UserTransformerServiceImpl implements UserTransformerService {
         userDto.setPassword(entity.getPassword());
         return userDto;
     }
+
+    @Override
+    public List<UserDto> transformListFromEntity(User entity) {
+        List<UserDto> friends = new ArrayList<>();
+        for(User user: entity.getFriends()){
+            friends.add(transformFromEntity(user));
+        }
+        return friends;
+    }
+
 }

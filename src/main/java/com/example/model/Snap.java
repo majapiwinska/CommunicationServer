@@ -17,7 +17,6 @@ public class Snap {
     @PrimaryKeyJoinColumn
     private User sender;
 
-
     private Long receiverId;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

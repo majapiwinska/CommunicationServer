@@ -27,13 +27,13 @@ public class User {
     )
     private List<User> friends = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+/*    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "tbl_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
-    private List<User> friendsOf = new ArrayList<>();
+    private List<User> friendsOf = new ArrayList<>();*/
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -108,11 +108,11 @@ public class User {
         this.friends = friends;
     }
 
-    public List<User> getFriendsOf() {
+    /*public List<User> getFriendsOf() {
         return friendsOf;
     }
 
     public void setFriendsOf(List<User> friendsOf) {
         this.friendsOf = friendsOf;
-    }
+    }*/
 }
