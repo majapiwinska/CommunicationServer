@@ -27,22 +27,7 @@ public class User {
     )
     private List<User> friends = new ArrayList<>();
 
-/*    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "tbl_friends",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "friend_id")
-    )
-    private List<User> friendsOf = new ArrayList<>();*/
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_photo",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "photo_id")
-    )
-    private List<Photo> photos = new ArrayList<>();
-
+    private List<User> friendsOf = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -66,14 +51,6 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public List<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
     }
 
     public String getNick() {
@@ -107,12 +84,4 @@ public class User {
     public void setFriends(List<User> friends) {
         this.friends = friends;
     }
-
-    /*public List<User> getFriendsOf() {
-        return friendsOf;
-    }
-
-    public void setFriendsOf(List<User> friendsOf) {
-        this.friendsOf = friendsOf;
-    }*/
 }

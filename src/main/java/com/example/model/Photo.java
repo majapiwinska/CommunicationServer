@@ -1,7 +1,9 @@
 package com.example.model;
 
-import javax.persistence.*;
-import java.sql.Blob;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -19,7 +21,7 @@ public class Photo {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private Blob image;
+    private String image;
 
      public Long getId() {
         return id;
@@ -29,11 +31,11 @@ public class Photo {
         this.id = id;
     }
 
-    public Blob getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Blob image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

@@ -7,25 +7,27 @@ import java.util.List;
  */
 public class SnapDto {
 
-    private String senderEmail;
+    private Long senderId;
     private String image;
     private List<Long> receiversList;
+    private int seconds;
+    private boolean opened;
 
     public SnapDto() {
     }
 
-    public SnapDto(String senderEmail, String image, List<Long> receiversList) {
-        this.senderEmail = senderEmail;
+    public SnapDto(Long senderId, String image, List<Long> receiversList) {
+        this.senderId= senderId;
         this.image = image;
         this.receiversList = receiversList;
     }
 
-    public String getSenderEmail() {
-        return senderEmail;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
     public String getImage() {
@@ -42,5 +44,21 @@ public class SnapDto {
 
     public void setReceiversList(List<Long> receiversList) {
         this.receiversList = receiversList;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public boolean isOpened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
     }
 }

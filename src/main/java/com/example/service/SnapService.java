@@ -13,7 +13,10 @@ public interface SnapService {
 
     List<Snap> findAll();
 
+    List<Snap> findByReceiverId(Long id);
+
     Snap create(Snap snap);
 
     void delete(Long id);
+
 }

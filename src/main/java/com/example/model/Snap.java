@@ -15,13 +15,13 @@ public class Snap {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private User sender;
+    private Long senderId;
 
     private Long receiverId;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Photo photo;
+    private Long photoId;
 
     private int seconds;
 
@@ -35,12 +35,12 @@ public class Snap {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
     public Long getReceiverId() {
@@ -51,12 +51,12 @@ public class Snap {
         this.receiverId = receiverId;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public Long getPhotoId() {
+        return photoId;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhotoId(Long photoId) {
+        this.photoId = photoId;
     }
 
     public boolean isOpened() {

@@ -17,7 +17,6 @@ public class SnapServiceImpl implements SnapService {
     @Autowired
     private SnapRepository snapRepository;
 
-
     @Override
     public Snap findOne(Long id) {
         return snapRepository.findOne(id);
@@ -26,6 +25,11 @@ public class SnapServiceImpl implements SnapService {
     @Override
     public List<Snap> findAll() {
        return snapRepository.findAll();
+    }
+
+    @Override
+    public List<Snap> findByReceiverId(Long id) {
+        return snapRepository.findByReceiverId(id);
     }
 
     @Override

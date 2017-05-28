@@ -29,7 +29,7 @@ public class UserTransformerServiceImpl implements UserTransformerService {
         user.setPassword(dto.getPassword());
         user.setFriends(new ArrayList<>());
        // user.setFriendsOf(new ArrayList<>());
-        user.setPhotos(new ArrayList<>());
+      //  user.setPhotos(new ArrayList<>());
         return user;
     }
 
