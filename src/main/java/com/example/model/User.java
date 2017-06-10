@@ -21,13 +21,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            name="tbl_friends",
+            name="friends",
             joinColumns = @JoinColumn(name = "friend_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> friends = new ArrayList<>();
-
-    private List<User> friendsOf = new ArrayList<>();
 
     public Long getId() {
         return id;

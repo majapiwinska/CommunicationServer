@@ -9,14 +9,14 @@ public class SnapDto {
 
     private Long senderId;
     private String image;
-    private List<Long> receiversList;
+    private List<String> receiversList;
     private int seconds;
     private boolean opened;
 
     public SnapDto() {
     }
 
-    public SnapDto(Long senderId, String image, List<Long> receiversList) {
+    public SnapDto(Long senderId, String image, List<String> receiversList) {
         this.senderId= senderId;
         this.image = image;
         this.receiversList = receiversList;
@@ -38,11 +38,11 @@ public class SnapDto {
         this.image = image;
     }
 
-    public List<Long> getReceiversList() {
+    public List<String> getReceiversList() {
         return receiversList;
     }
 
-    public void setReceiversList(List<Long> receiversList) {
+    public void setReceiversList(List<String> receiversList) {
         this.receiversList = receiversList;
     }
 

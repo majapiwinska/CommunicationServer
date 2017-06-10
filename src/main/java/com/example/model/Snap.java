@@ -13,14 +13,10 @@ public class Snap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
     private Long senderId;
 
     private Long receiverId;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
     private Long photoId;
 
     private int seconds;

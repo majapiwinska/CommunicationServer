@@ -5,6 +5,7 @@ import com.example.model.Snap;
 import com.example.model.dto.SnapDto;
 import com.example.service.PhotoService;
 import com.example.service.SnapService;
+import com.example.service.UserService;
 import com.example.transformer.service.SnapTransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,15 @@ public class SnapTransformerServiceImpl implements SnapTransformerService {
     private PhotoService photoService;
     @Autowired
     private SnapService snapService;
+    @Autowired
+    private UserService userService;
 
 
     @Override
     public SnapDto transformFromEntity(Snap entity) {
         SnapDto dto = new SnapDto();
-        List<Long> receiversList = new ArrayList<>();
-        receiversList.add(entity.getReceiverId());
-
+        List<String> receiversList = new ArrayList<>();
+        receiversList.add(userService.findOne(entity.getId()).getEmail());
         dto.setSenderId(entity.getSenderId());
         dto.setReceiversList(receiversList);
         dto.setImage(photoService.findOne(entity.getPhotoId()).getImage());
@@ -44,10 +46,10 @@ public class SnapTransformerServiceImpl implements SnapTransformerService {
         Photo photo = new Photo();
         photo.setImage(dto.getImage());
         photoService.create(photo);
-        for (Long receiverId : dto.getReceiversList()) {
+        for (String receiverEmail : dto.getReceiversList()) {
             Snap entity = new Snap();
             entity.setSenderId(dto.getSenderId());
-            entity.setReceiverId(receiverId);
+            entity.setReceiverId(userService.findByEmail(receiverEmail).getId());
             entity.setPhotoId(photo.getId());
             entity.setSeconds(dto.getSeconds());
             entity.setOpened(false);

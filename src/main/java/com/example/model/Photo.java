@@ -3,7 +3,8 @@ package com.example.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import java.sql.Blob;
+import java.sql.SQLException;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -12,7 +13,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "photo")
 public class Photo {
 
     public Photo(){};
@@ -21,7 +21,7 @@ public class Photo {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    private String image;
+    private Blob image;
 
      public Long getId() {
         return id;
@@ -32,11 +32,25 @@ public class Photo {
     }
 
     public String getImage() {
-        return image;
+        byte[] bytes = null;
+        try {
+            bytes = image.getBytes(1, (int) image.length());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return bytes.toString();
     }
 
     public void setImage(String image) {
-        this.image = image;
+        byte[] bytes = image.getBytes();
+        Blob blob = null;
+        try {
+            blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.image = blob;
     }
 
 }
