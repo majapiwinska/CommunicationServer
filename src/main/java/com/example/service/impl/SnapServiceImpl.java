@@ -1,7 +1,13 @@
 package com.example.service.impl;
 
+import com.example.model.Photo;
 import com.example.model.Snap;
+import com.example.model.User;
+import com.example.model.dto.SnapDto;
+import com.example.repository.PhotoRepository;
 import com.example.repository.SnapRepository;
+import com.example.repository.UserRepository;
+import com.example.service.PhotoService;
 import com.example.service.SnapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +22,12 @@ public class SnapServiceImpl implements SnapService {
 
     @Autowired
     private SnapRepository snapRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PhotoRepository photoRepository;
 
     @Override
     public Snap findOne(Long id) {
@@ -40,5 +52,27 @@ public class SnapServiceImpl implements SnapService {
     @Override
     public void delete(Long id) {
         snapRepository.delete(id);
+    }
+
+    @Override
+    public void saveSnapsForUsers(SnapDto snapDto) {
+        // save photo
+        Photo photo = new Photo(snapDto.getImage());
+        photo = photoRepository.save(photo);
+
+        // get sender
+        User sender = userRepository.findOne(snapDto.getSenderId());
+
+        // build entity
+        Snap snap = new Snap();
+        snap.setSender(sender);
+        snap.setPhoto(photo);
+
+        // save a snap for each user
+        for (Long receiverId : snapDto.getReceiversList()) {
+            User receiver = userRepository.findOne(receiverId);
+            snap.setReceiver(receiver);
+            snapRepository.save(snap);
+        }
     }
 }

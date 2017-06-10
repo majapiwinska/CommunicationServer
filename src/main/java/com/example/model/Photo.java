@@ -1,9 +1,6 @@
 package com.example.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -15,15 +12,21 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "photo")
 public class Photo {
 
-    public Photo(){};
+    public Photo() {
+    }
+
+    public Photo(String image) {
+        this.image = image;
+    }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @Lob
     private String image;
 
-     public Long getId() {
+    public Long getId() {
         return id;
     }
 

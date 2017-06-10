@@ -1,7 +1,9 @@
 package com.example.service;
 
 import com.example.model.Snap;
+import com.example.model.dto.SnapDto;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,5 +20,8 @@ public interface SnapService {
     Snap create(Snap snap);
 
     void delete(Long id);
+
+    @Transactional
+    void saveSnapsForUsers(SnapDto snapDto);
 
 }

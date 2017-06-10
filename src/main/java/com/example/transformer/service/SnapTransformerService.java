@@ -12,6 +12,10 @@ public interface SnapTransformerService {
 
     SnapDto transformFromEntity(Snap entity);
 
-    List<Snap> transformFromDtoToList(SnapDto dto);
+    /**
+     * @param dto
+     * @return list of entites without: id, sender, receiver
+     */
+    Snap transformFromDto(SnapDto dto);
 
 }

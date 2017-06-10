@@ -23,6 +23,7 @@ public class SnapController {
 
     @Autowired
     SnapTransformerService snapTransformerService;
+
     @Autowired
     SnapService snapService;
 
@@ -31,10 +32,8 @@ public class SnapController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.POST
     )
-    public String sendSnap(@RequestBody SnapDto snapDto){
-        snapTransformerService.transformFromDtoToList(snapDto);
-        return "{\"key\": \"jest snap\"}";
-
+    public void sendSnap(@RequestBody SnapDto snapDto){
+        snapService.saveSnapsForUsers(snapDto);
     }
 
     @RequestMapping(

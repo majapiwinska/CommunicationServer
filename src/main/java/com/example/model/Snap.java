@@ -13,19 +13,17 @@ public class Snap {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne
     @PrimaryKeyJoinColumn
-    private Long senderId;
+    private User sender;
 
-    private Long receiverId;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne
     @PrimaryKeyJoinColumn
-    private Long photoId;
+    private User receiver;
 
-    private int seconds;
-
-    private boolean opened;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Photo photo;
 
     public Long getId() {
         return id;
@@ -35,43 +33,27 @@ public class Snap {
         this.id = id;
     }
 
-    public Long getSenderId() {
-        return senderId;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    public Long getReceiverId() {
-        return receiverId;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setReceiverId(Long receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
-    public Long getPhotoId() {
-        return photoId;
+    public Photo getPhoto() {
+        return photo;
     }
 
-    public void setPhotoId(Long photoId) {
-        this.photoId = photoId;
-    }
-
-    public boolean isOpened() {
-        return opened;
-    }
-
-    public void setOpened(boolean opened) {
-        this.opened = opened;
-    }
-
-    public int getSeconds() {
-        return seconds;
-    }
-
-    public void setSeconds(int seconds) {
-        this.seconds = seconds;
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 }
