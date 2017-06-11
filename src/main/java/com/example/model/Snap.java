@@ -11,19 +11,17 @@ public class Snap {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "snap_id")
     private Long id;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private User sender;
+    @Column(name = "sender_id")
+    private Long senderId;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private User receiver;
+    @Column(name = "receiver_id")
+    private Long receiverId;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Photo photo;
+    @Column(name = "photo_id")
+    private Long photoId;
 
     public Long getId() {
         return id;
@@ -33,27 +31,27 @@ public class Snap {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setSender(User sender) {
-        this.sender = sender;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public User getReceiver() {
-        return receiver;
+    public Long getReceiverId() {
+        return receiverId;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public Long getPhotoId() {
+        return photoId;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhotoId(Long photoId) {
+        this.photoId = photoId;
     }
 }

@@ -3,15 +3,16 @@ package com.example.service.impl;
 import com.example.model.Photo;
 import com.example.model.Snap;
 import com.example.model.User;
-import com.example.model.dto.SnapDto;
+import com.example.model.dto.AddSnapDto;
+import com.example.model.dto.GetSnapDto;
 import com.example.repository.PhotoRepository;
 import com.example.repository.SnapRepository;
 import com.example.repository.UserRepository;
-import com.example.service.PhotoService;
 import com.example.service.SnapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,48 +31,32 @@ public class SnapServiceImpl implements SnapService {
     private PhotoRepository photoRepository;
 
     @Override
-    public Snap findOne(Long id) {
-        return snapRepository.findOne(id);
+    public List<GetSnapDto> findByReceiverId(Long id) {
+        List<Snap> snaps = snapRepository.findByReceiverId(id);
+        List<GetSnapDto> snapDtos = new ArrayList<>();
+        for (Snap snap : snaps) {
+            User sender = userRepository.findOne(snap.getSenderId());
+            Photo photo = photoRepository.findOne(snap.getPhotoId());
+            GetSnapDto dto = new GetSnapDto(sender.getEmail(), photo.getImage());
+            snapDtos.add(dto);
+        }
+        return snapDtos;
     }
 
     @Override
-    public List<Snap> findAll() {
-       return snapRepository.findAll();
-    }
-
-    @Override
-    public List<Snap> findByReceiverId(Long id) {
-        return snapRepository.findByReceiverId(id);
-    }
-
-    @Override
-    public Snap create(Snap snap) {
-        return snapRepository.save(snap);
-    }
-
-    @Override
-    public void delete(Long id) {
-        snapRepository.delete(id);
-    }
-
-    @Override
-    public void saveSnapsForUsers(SnapDto snapDto) {
-        // save photo
-        Photo photo = new Photo(snapDto.getImage());
+    public void saveSnapsForUsers(AddSnapDto addSnapDto) {
+        Photo photo = new Photo(addSnapDto.getImage());
         photo = photoRepository.save(photo);
 
-        // get sender
-        User sender = userRepository.findOne(snapDto.getSenderId());
+        User sender = userRepository.findByEmail(addSnapDto.getSenderEmail());
 
-        // build entity
         Snap snap = new Snap();
-        snap.setSender(sender);
-        snap.setPhoto(photo);
+        snap.setSenderId(sender.getId());
+        snap.setPhotoId(photo.getId());
 
-        // save a snap for each user
-        for (Long receiverId : snapDto.getReceiversList()) {
-            User receiver = userRepository.findOne(receiverId);
-            snap.setReceiver(receiver);
+        for (String receiverEmail : addSnapDto.getReceiversEmails()) {
+            User receiver = userRepository.findByEmail(receiverEmail);
+            snap.setReceiverId(receiver.getId());
             snapRepository.save(snap);
         }
     }

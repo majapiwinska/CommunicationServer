@@ -1,7 +1,8 @@
 package com.example.service;
 
 import com.example.model.Snap;
-import com.example.model.dto.SnapDto;
+import com.example.model.dto.AddSnapDto;
+import com.example.model.dto.GetSnapDto;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -11,17 +12,9 @@ import java.util.List;
  */
 public interface SnapService {
 
-    Snap findOne(Long id);
-
-    List<Snap> findAll();
-
-    List<Snap> findByReceiverId(Long id);
-
-    Snap create(Snap snap);
-
-    void delete(Long id);
+    List<GetSnapDto> findByReceiverId(Long id);
 
     @Transactional
-    void saveSnapsForUsers(SnapDto snapDto);
+    void saveSnapsForUsers(AddSnapDto addSnapDto);
 
 }

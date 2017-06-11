@@ -39,16 +39,11 @@ public class UserServiceImpl implements UserService {
     public User update(User user, Principal principal) {
         String email = principal.getName();
         User updatedUser = userRepository.findByEmail(email);
-        List<User> friendsOf = new ArrayList<>();
         List<User> friends = new ArrayList<>();
-       /* for(User friend : user.getFriendsOf()){
-            friendsOf.add(friend);
-        }*/
         for(User friend : user.getFriends()){
             friends.add(friend);
         }
         updatedUser.setFriends(friends);
-        //updatedUser.setFriendsOf(friendsOf);
         updatedUser.setEmail(user.getEmail());
         updatedUser.setNick(user.getNick());
         updatedUser.setPassword(user.getPassword());

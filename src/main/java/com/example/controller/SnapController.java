@@ -1,15 +1,12 @@
 package com.example.controller;
 
 import com.example.model.Snap;
-import com.example.model.dto.SnapDto;
+import com.example.model.dto.AddSnapDto;
+import com.example.model.dto.GetSnapDto;
 import com.example.service.SnapService;
-import com.example.transformer.service.SnapTransformerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +19,6 @@ import java.util.List;
 public class SnapController {
 
     @Autowired
-    SnapTransformerService snapTransformerService;
-
-    @Autowired
     SnapService snapService;
 
     @RequestMapping(
@@ -32,23 +26,17 @@ public class SnapController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             method = RequestMethod.POST
     )
-    public void sendSnap(@RequestBody SnapDto snapDto){
-        snapService.saveSnapsForUsers(snapDto);
+    public void sendSnap(@RequestBody AddSnapDto addSnapDto){
+        snapService.saveSnapsForUsers(addSnapDto);
     }
 
     @RequestMapping(
-            value = "/getsnaps",
+            value = "/getsnaps/{id}",
             method = RequestMethod.GET
     )
-    public List<SnapDto> getSnaps(Long receiverId){
-        List<Snap> entities = snapService.findByReceiverId(receiverId);
-        List<SnapDto> dtoList = new ArrayList<>();
-        for(Snap entity: entities){
-            SnapDto dto = snapTransformerService.transformFromEntity(entity);
-            dtoList.add(dto);
-        }
-        return dtoList;
-
+    public List<GetSnapDto> getSnaps(@PathVariable("id") Long receiverId){
+        List<GetSnapDto> snaps = snapService.findByReceiverId(receiverId);
+        return snaps;
     };
 
 }

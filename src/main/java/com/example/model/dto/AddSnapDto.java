@@ -5,29 +5,23 @@ import java.util.List;
 /**
  * Created by maja on 02.05.17.
  */
-public class SnapDto {
+public class AddSnapDto {
 
-    private Long senderId;
+    private String senderEmail;
     private String image;
-    private List<Long> receiversList;
+    private List<String> receiversEmails;
     private int seconds;
     private boolean opened;
 
-    public SnapDto() {
+    public AddSnapDto() {
     }
 
-    public SnapDto(Long senderId, String image, List<Long> receiversList) {
-        this.senderId= senderId;
-        this.image = image;
-        this.receiversList = receiversList;
+    public String getSenderEmail() {
+        return senderEmail;
     }
 
-    public Long getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(Long senderId) {
-        this.senderId = senderId;
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
     }
 
     public String getImage() {
@@ -38,12 +32,12 @@ public class SnapDto {
         this.image = image;
     }
 
-    public List<Long> getReceiversList() {
-        return receiversList;
+    public List<String> getReceiversEmails() {
+        return receiversEmails;
     }
 
-    public void setReceiversList(List<Long> receiversList) {
-        this.receiversList = receiversList;
+    public void setReceiversEmails(List<String> receiversEmails) {
+        this.receiversEmails = receiversEmails;
     }
 
     public int getSeconds() {

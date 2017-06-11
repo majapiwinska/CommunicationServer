@@ -9,7 +9,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 
 @Entity
-@Table(name = "photo")
 public class Photo {
 
     public Photo() {
@@ -21,6 +20,7 @@ public class Photo {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "photo_id")
     private Long id;
 
     @Lob
@@ -41,5 +41,4 @@ public class Photo {
     public void setImage(String image) {
         this.image = image;
     }
-
 }
