@@ -32,9 +32,11 @@ public class SnapServiceImpl implements SnapService {
 
     @Override
     public List<GetSnapDto> findByReceiverId(Long id) {
-        List<Snap> snaps = snapRepository.findByReceiverId(id);
+        List<Snap> snaps = snapRepository.findByReceiverIdAndOpenedIsFalse(id);
+        snaps.forEach(s -> s.setOpened(true));
         List<GetSnapDto> snapDtos = new ArrayList<>();
         for (Snap snap : snaps) {
+            snapRepository.save(snap);
             User sender = userRepository.findOne(snap.getSenderId());
             Photo photo = photoRepository.findOne(snap.getPhotoId());
             GetSnapDto dto = new GetSnapDto(sender.getEmail(), photo.getImage());
@@ -53,6 +55,7 @@ public class SnapServiceImpl implements SnapService {
         Snap snap = new Snap();
         snap.setSenderId(sender.getId());
         snap.setPhotoId(photo.getId());
+        snap.setOpened(false);
 
         for (String receiverEmail : addSnapDto.getReceiversEmails()) {
             User receiver = userRepository.findByEmail(receiverEmail);

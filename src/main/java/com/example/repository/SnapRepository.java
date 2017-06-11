@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface SnapRepository extends JpaRepository<Snap, Long> {
 
-    List<Snap> findByReceiverId(Long receiverId);
+    List<Snap> findByReceiverIdAndOpenedIsFalse(Long receiverId);
 
 }

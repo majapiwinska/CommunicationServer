@@ -23,6 +23,9 @@ public class Snap {
     @Column(name = "photo_id")
     private Long photoId;
 
+    @Column(name = "opened")
+    private boolean opened;
+
     public Long getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Snap {
 
     public void setPhotoId(Long photoId) {
         this.photoId = photoId;
+    }
+
+    public boolean getOpened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
     }
 }
